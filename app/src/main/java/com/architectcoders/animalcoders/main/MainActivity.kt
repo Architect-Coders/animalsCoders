@@ -1,7 +1,8 @@
-package com.architectcoders.animalcoders
+package com.architectcoders.animalcoders.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.architectcoders.animalcoders.R
 
 class MainActivity : AppCompatActivity() {
 

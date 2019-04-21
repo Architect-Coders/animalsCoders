@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Animal Coders</string>
+
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="log_in">Log in</string>
+    <string name="cancel">Cancel</string>
+    <string name="username_error">Username cannot be empty</string>
+    <string name="password_error">Password cannot be empty</string>
 </resources>
