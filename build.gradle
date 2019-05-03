@@ -4,7 +4,7 @@ buildscript {
     ext.fabric_version = '1.28.0'
     ext.gradle_version = '3.4.0'
     ext.google_services_version = '4.2.0'
-    ext.kotlin_version = '1.3.30'
+    ext.kotlin_version = '1.3.31'
 
     repositories {
         google()
@@ -15,7 +15,7 @@ buildscript {
     dependencies {
         classpath "io.fabric.tools:gradle:$fabric_version"
         classpath "com.google.gms:google-services:$google_services_version"
-        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "com.android.tools.build:gradle:${gradle_version}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -37,7 +37,7 @@ ext {
     sdkMaxVersion = 28
     buildToolsLibVersion = '28.0.3'
 
-    compatLibVersion = '1.1.0-alpha04'
+    compatLibVersion = '1.0.2'
     constraintLibVersion = '1.1.3'
     coreKtxLibVersion = '1.1.0-alpha05'
     crashlyticsLibVersion = '2.9.9'
@@ -54,6 +54,6 @@ ext {
     // retrofitLibVersion = '2.3.0'
 
     testJunitLibVersion = '4.12'
-    testRunnerLibVersion = '1.2.0-alpha04'
-    testExpressoLibVersion = '3.2.0-alpha04'
+    testRunnerLibVersion = '1.1.1'
+    testExpressoLibVersion = '3.1.1'
 }
