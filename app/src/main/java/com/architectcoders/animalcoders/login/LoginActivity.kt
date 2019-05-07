@@ -8,6 +8,7 @@ import com.architectcoders.animalcoders.main.MainActivity
 import com.architectcoders.animalcoders.tools.goToActivity
 import com.architectcoders.animalcoders.tools.hide
 import com.architectcoders.animalcoders.tools.show
+import com.architectcoders.domain.interactors.LoginInteractor
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {

@@ -1,7 +1,15 @@
 package com.architectcoders.animalcoders.login
 
+import com.architectcoders.animalcoders.tools.Scope
+import com.architectcoders.domain.interactors.LoginInteractor
+import kotlinx.coroutines.launch
+
 class LoginPresenter(var loginView: LoginView?, val loginInteractor: LoginInteractor) :
-    LoginInteractor.OnLoginFinishedListener {
+    LoginInteractor.OnLoginFinishedListener, Scope by Scope.Impl {
+
+    init {
+        initScope()
+    }
 
     override fun onUsernameSuccess() {
         loginView?.apply {
@@ -36,11 +44,16 @@ class LoginPresenter(var loginView: LoginView?, val loginInteractor: LoginIntera
     // -----------------------------------------------------------------------------------------------------------------
 
     fun validateCredentials(username: String, password: String) {
-        loginView?.showProgress()
-        loginInteractor.login(username, password, this)
+
+        launch {
+            loginView?.showProgress()
+            loginInteractor.login(username, password, this@LoginPresenter)
+        }
     }
 
     fun onDestroy() {
+
         loginView = null
+        destroyScope()
     }
 }

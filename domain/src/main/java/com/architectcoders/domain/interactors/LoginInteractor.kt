@@ -1,8 +1,6 @@
-package com.architectcoders.animalcoders.login
+package com.architectcoders.domain.interactors
 
-import com.architectcoders.animalcoders.tools.postDelayed
-
-class LoginInteractor {
+class LoginInteractor(val loginRepository: LoginRepository) {
 
     interface OnLoginFinishedListener {
         fun onUsernameError()
@@ -12,9 +10,9 @@ class LoginInteractor {
         fun onSuccess()
     }
 
-    fun login (username: String, password: String, listener: OnLoginFinishedListener) {
+    suspend fun login (username: String, password: String, listener: OnLoginFinishedListener) {
 
-        postDelayed(2000) {
+        //postDelayed(2000) {
             var isOK = true
 
             if (username.isEmpty()) {
@@ -34,6 +32,6 @@ class LoginInteractor {
             if (isOK) {
                 listener.onSuccess()
             }
-        }
+        //}
     }
 }
