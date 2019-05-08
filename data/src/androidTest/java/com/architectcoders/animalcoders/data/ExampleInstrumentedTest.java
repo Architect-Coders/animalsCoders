@@ -1,4 +1,4 @@
-package com.architectcoders.data;
+package com.architectcoders.animalcoders.data;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.architectcoders.data.test", appContext.getPackageName());
+        assertEquals("com.example.data.test", appContext.getPackageName());
     }
 }

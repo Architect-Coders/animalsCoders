@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.architectcoders.animalcoders.R
+import com.architectcoders.animalcoders.data.remote.login.FirebaseLoginServiceImpl
+import com.architectcoders.animalcoders.data.repository.LoginRepositoryImpl
 import com.architectcoders.animalcoders.main.MainActivity
 import com.architectcoders.animalcoders.tools.goToActivity
 import com.architectcoders.animalcoders.tools.hide
@@ -13,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
 
-    private val presenter = LoginPresenter(this, LoginInteractor())
+    private val presenter = LoginPresenter(this, LoginInteractor(LoginRepositoryImpl(FirebaseLoginServiceImpl())))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -30,7 +32,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
 
             R.id.bt_login -> validateCredentials()
 
-            else -> {}
+            else -> {
+            }
         }
     }
 

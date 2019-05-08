@@ -1,4 +1,4 @@
-package com.architectcoders.data;
+package com.architectcoders.animalcoders.data;
 
 import org.junit.Test;
 
