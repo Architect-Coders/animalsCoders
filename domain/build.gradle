@@ -3,4 +3,7 @@ apply plugin: 'kotlin'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //ARROW
+    implementation "io.arrow-kt:arrow-core-data:$arrow_version"
 }

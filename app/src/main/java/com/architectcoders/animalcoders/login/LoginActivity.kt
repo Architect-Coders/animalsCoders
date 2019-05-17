@@ -5,7 +5,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.data.remote.login.FirebaseLoginServiceImpl
-import com.architectcoders.animalcoders.data.repository.LoginRepositoryImpl
 import com.architectcoders.animalcoders.main.MainActivity
 import com.architectcoders.animalcoders.tools.goToActivity
 import com.architectcoders.animalcoders.tools.hide
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
 
-    private val presenter = LoginPresenter(this, LoginInteractor(LoginRepositoryImpl(FirebaseLoginServiceImpl())))
+    //private val presenter = LoginPresenter(this, LoginInteractor(LoginRepositoryImpl(FirebaseLoginServiceImpl())))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -38,7 +37,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
     }
 
     override fun onDestroy() {
-        presenter.onDestroy()
+        //presenter.onDestroy()
         super.onDestroy()
     }
 
@@ -79,6 +78,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
     }
 
     private fun validateCredentials() {
-        presenter.validateCredentials(tie_username.text.toString(), tie_password.text.toString())
+        //presenter.validateCredentials(tie_username.text.toString(), tie_password.text.toString())
     }
 }

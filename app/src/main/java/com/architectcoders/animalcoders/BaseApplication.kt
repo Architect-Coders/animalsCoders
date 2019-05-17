@@ -1,6 +1,7 @@
 package com.architectcoders.animalcoders
 
 import android.app.Application
+import arrow.core.Either
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import com.google.firebase.FirebaseApp
@@ -30,6 +31,8 @@ class BaseApplication: Application() {
             .core(core)
             .build()
         Fabric.with(this, crashlytics)
+
+        Either
     }
 
     private fun setupFB() {

@@ -3,7 +3,7 @@ package com.architectcoders.animalcoders.data.repository
 import com.architectcoders.animalcoders.data.remote.login.LoginService
 import com.architectcoders.domain.repository.LoginRepository
 
-class LoginRepositoryImpl (private val loginService: LoginService) : LoginRepository {
+/*class LoginRepositoryImpl (private val loginService: LoginService) : LoginRepository {
 
     override suspend fun login(username: String?, password: String?, onLoginRepositoryListener: LoginRepository.OnLoginRepositoryListener?) {
         loginService.login(username,password, object: LoginRepository.OnLoginRepositoryListener {
@@ -17,4 +17,4 @@ class LoginRepositoryImpl (private val loginService: LoginService) : LoginReposi
 
         } )
     }
-}
+}*/

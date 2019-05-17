@@ -46,7 +46,7 @@ class LoginPresenter(var loginView: LoginView?, val loginInteractor: LoginIntera
     fun validateCredentials(username: String, password: String) {
         launch {
             loginView?.showProgress()
-            loginInteractor.login(username, password, this@LoginPresenter)
+            //loginInteractor.login(username, password, this@LoginPresenter)
         }
     }
 

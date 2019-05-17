@@ -1,5 +1,7 @@
 package com.architectcoders.domain.interactors
 
+import arrow.core.Either
+import com.architectcoders.domain.model.Failure
 import com.architectcoders.domain.repository.LoginRepository
 
 class LoginInteractor(private val loginRepository: LoginRepository) {
@@ -12,36 +14,11 @@ class LoginInteractor(private val loginRepository: LoginRepository) {
         fun onSuccess()
     }
 
-    suspend fun login(username: String, password: String, listener: OnLoginFinishedListener) {
-        //postDelayed(2000) {
-        var isOK = true
-
-        if (username.isEmpty()) {
-            isOK = false
-            listener.onUsernameError()
-        } else {
-            listener.onUsernameSuccess()
+    suspend fun login(username: String, password: String) =
+        when {
+            username.isEmpty() -> Either.left(Failure(Failure.Reason.BLANK_INVALID_USER))
+            password.isEmpty() -> Either.left(Failure(Failure.Reason.BLANK_INVALID_PASS))
+            else -> loginRepository.login(username, password)
         }
 
-        if (password.isEmpty()) {
-            isOK = false
-            listener.onPasswordError()
-        } else {
-            listener.onPasswordSuccess()
-        }
-
-        if (isOK) {
-            loginRepository.login(username, password, object : LoginRepository.OnLoginRepositoryListener {
-                override fun onError() {
-                    listener.onPasswordError()
-                }
-
-                override fun onSuccess() {
-                    listener.onSuccess()
-                }
-
-            })
-        }
-        //}
-    }
 }
