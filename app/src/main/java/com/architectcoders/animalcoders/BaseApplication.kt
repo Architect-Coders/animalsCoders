@@ -32,7 +32,6 @@ class BaseApplication: Application() {
             .build()
         Fabric.with(this, crashlytics)
 
-        Either
     }
 
     private fun setupFB() {
