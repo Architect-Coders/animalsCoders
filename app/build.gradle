@@ -89,5 +89,9 @@ dependencies {
     testImplementation "junit:junit:$testJunitLibVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerLibVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$testExpressoLibVersion"
+
+    //ARROW
+    implementation "io.arrow-kt:arrow-core-data:$arrow_version"
+    implementation "io.arrow-kt:arrow-core-extensions:$arrow_version"
 }
 apply plugin: 'com.google.gms.google-services'
