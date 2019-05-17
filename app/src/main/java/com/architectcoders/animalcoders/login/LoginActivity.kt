@@ -3,24 +3,33 @@ package com.architectcoders.animalcoders.login
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.data.remote.login.FirebaseLoginServiceImpl
-import com.architectcoders.animalcoders.main.MainActivity
-import com.architectcoders.animalcoders.tools.goToActivity
-import com.architectcoders.animalcoders.tools.hide
-import com.architectcoders.animalcoders.tools.show
+import com.architectcoders.animalcoders.data.repository.LoginRepositoryImpl
+import com.architectcoders.animalcoders.factory.LoginViewModelFactory
 import com.architectcoders.domain.interactors.LoginInteractor
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
+class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
-    //private val presenter = LoginPresenter(this, LoginInteractor(LoginRepositoryImpl(FirebaseLoginServiceImpl())))
+    lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        injection()
         setListeners()
+    }
+
+    //TODO: Hacerlo con Dagger o Koin
+    private fun injection() {
+        val loginService = FirebaseLoginServiceImpl()
+        val loginRepository = LoginRepositoryImpl(loginService)
+        val loginInteractor = LoginInteractor(loginRepository)
+
+        viewModel = ViewModelProviders.of(this, LoginViewModelFactory(loginInteractor)).get(LoginViewModel::class.java)
     }
 
     override fun onClick(view: View) {
@@ -41,7 +50,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
         super.onDestroy()
     }
 
-    override fun showProgress() {
+    /*override fun showProgress() {
         pb_wait.show()
     }
 
@@ -68,7 +77,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
     override fun navigateToHome() {
         pb_wait.hide()
         goToActivity<MainActivity>()
-    }
+    }*/
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -78,6 +87,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginView {
     }
 
     private fun validateCredentials() {
-        //presenter.validateCredentials(tie_username.text.toString(), tie_password.text.toString())
+        viewModel.validateCredencials(tie_username.text.toString(), tie_password.text.toString())
     }
 }
