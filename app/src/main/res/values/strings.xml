@@ -7,4 +7,6 @@
     <string name="cancel">Cancel</string>
     <string name="username_error">Username cannot be empty</string>
     <string name="password_error">Password cannot be empty</string>
+    <string name="accept">Accept</string>
+    <string name="unknown_error">"Unknown error"</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import arrow.core.Either
 import com.architectcoders.animalcoders.tools.Scope
 import com.architectcoders.domain.interactors.LoginInteractor
+import com.architectcoders.domain.model.Failure
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val interactor: LoginInteractor) : ViewModel(), Scope by Scope.Impl {
@@ -35,6 +36,13 @@ class LoginViewModel(private val interactor: LoginInteractor) : ViewModel(), Sco
         when (val result = interactor.login(username, password)) {
             is Either.Left -> {
                 Log.d("REASON: ", result.a.reason.toString())
+                when (result.a.reason) {
+                    Failure.Reason.BLANK_INVALID_USER -> _model.value = LoginViewState.UsernameError
+                    Failure.Reason.BLANK_INVALID_PASS -> _model.value = LoginViewState.PasswordError
+                    Failure.Reason.USER_NOT_EXIST -> _model.value = LoginViewState.Error(result.a.message)
+                    Failure.Reason.CONNECTION_ISSUES -> _model.value = LoginViewState.Error(result.a.message)
+                    else -> _model.value = LoginViewState.Error(result.a.message)
+                }
             }
             is Either.Right -> {
                 Log.d("EMAIL: ", result.b.email)

@@ -12,7 +12,9 @@ import com.architectcoders.animalcoders.tools.getViewModel
 import com.architectcoders.animalcoders.tools.goToActivity
 import com.architectcoders.animalcoders.tools.hideKeyboard
 import com.architectcoders.domain.interactors.LoginInteractor
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -65,15 +67,44 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         pb_wait.visibility = if (model is LoginViewState.Loading) View.VISIBLE else View.GONE
 
         when (model) {
-            is LoginViewState.ClearPassword -> clearPasswordError()
-            is LoginViewState.ClearUsername -> clearUsernameError()
-            is LoginViewState.UsernameError -> setUsernameError()
-            is LoginViewState.PasswordError -> setPasswordError()
+            is LoginViewState.EmptyFields -> clearForm()
+            is LoginViewState.UsernameError -> {
+                clearUsernameError()
+                setUsernameError()
+            }
+            is LoginViewState.PasswordError -> {
+                clearPasswordError()
+                setPasswordError()
+            }
+            is LoginViewState.Error -> {
+                hideKeyboard()
+                showError(model)
+            }
             is LoginViewState.NavigateToHome -> {
                 hideKeyboard()
                 goToActivity<MainActivity>()
             }
         }
+    }
+
+    private fun clearForm() {
+        clearUsername()
+        clearUserPassword()
+        clearUsernameError()
+        clearPasswordError()
+    }
+
+    private fun showError(state: LoginViewState.Error) {
+        Snackbar.make(rl_login_container, state.errorMessage ?: getString(R.string.unknown_error), Snackbar.LENGTH_LONG)
+            .show()
+    }
+
+    private fun clearUsername() {
+        tie_username.text?.clear()
+    }
+
+    private fun clearUserPassword() {
+        tie_password.text?.clear()
     }
 
     private fun clearUsernameError() {

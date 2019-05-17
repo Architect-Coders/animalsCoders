@@ -3,9 +3,8 @@ package com.architectcoders.animalcoders.login
 sealed class LoginViewState {
     object EmptyFields : LoginViewState()
     object Loading : LoginViewState()
-    object ClearUsername : LoginViewState()
-    object ClearPassword : LoginViewState()
     object UsernameError : LoginViewState()
     object PasswordError : LoginViewState()
+    class Error(val errorMessage: String?) : LoginViewState()
     object NavigateToHome : LoginViewState()
 }
