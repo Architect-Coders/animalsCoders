@@ -5,10 +5,6 @@ import com.architectcoders.domain.model.User
 
 interface LoginRepository {
 
-    interface OnLoginRepositoryListener {
-        fun onError()
-        fun onSuccess()
-    }
+    suspend fun login(username: String, password: String): Either<Failure, User>
 
-    suspend fun login(username: String?, password: String?): Either<Failure, User>
 }

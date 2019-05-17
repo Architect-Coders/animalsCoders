@@ -1,10 +1,14 @@
 package com.architectcoders.animalcoders.data.remote.login
 
-import com.architectcoders.domain.repository.LoginRepository
+import com.architectcoders.animalcoders.data.model.FirebaseResponse
 
 class FirebaseLoginServiceImpl : LoginService {
 
-    override suspend fun login(username: String?, password: String?, onLoginRepositoryListener: LoginRepository.OnLoginRepositoryListener?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    //TODO: Hacer llamada real a Firebase
+    override suspend fun login(username: String, password: String) = when (username) {
+        "coders" -> FirebaseResponse("alvaro", "alvaroToken", true, null, false)
+        "http" -> FirebaseResponse(null, null, false, null, true)
+        else -> FirebaseResponse(null, null, false, "Contraseña incorrecta", false)
     }
+
 }
