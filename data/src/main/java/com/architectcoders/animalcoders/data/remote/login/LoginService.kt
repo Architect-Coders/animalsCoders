@@ -1,7 +1,7 @@
 package com.architectcoders.animalcoders.data.remote.login
 
-import com.architectcoders.domain.repository.LoginRepository
+import com.architectcoders.animalcoders.data.model.FirebaseResponse
 
 interface LoginService {
-    suspend fun login(username: String?, password: String?, onLoginRepositoryListener: LoginRepository.OnLoginRepositoryListener?)
+    suspend fun login(username: String, password: String): FirebaseResponse
 }

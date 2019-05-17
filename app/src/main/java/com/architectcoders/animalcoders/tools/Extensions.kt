@@ -7,6 +7,10 @@ import android.os.Handler
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.enums.AnimationsActivities
 
@@ -34,9 +38,11 @@ fun isValidEmail(email: String): Boolean {
     return pattern.matcher(email).matches()
 }
 
-inline fun <reified T: Activity> Activity.goToActivity(clear: Boolean = true,
-                                                       animation: AnimationsActivities = AnimationsActivities.SLIDE_HORIZONTAL,
-                                                       init: Intent.() -> Unit = {}) {
+inline fun <reified T : Activity> Activity.goToActivity(
+    clear: Boolean = true,
+    animation: AnimationsActivities = AnimationsActivities.SLIDE_HORIZONTAL,
+    init: Intent.() -> Unit = {}
+) {
 
     val intent = Intent(this, T::class.java)
     if (clear) {
@@ -51,14 +57,17 @@ inline fun <reified T: Activity> Activity.goToActivity(clear: Boolean = true,
         AnimationsActivities.SLIDE_VERTICAL -> overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
         AnimationsActivities.ZOOM -> overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out)
         AnimationsActivities.SCALE -> overridePendingTransition(R.anim.scale_in, R.anim.scale_out)
-        AnimationsActivities.NONE -> {}
+        AnimationsActivities.NONE -> {
+        }
     }
 }
 
-inline fun <reified T : Activity> Activity.goToActivityResult(requestCode: Int,
-                                                              clear: Boolean = true,
-                                                              animation: AnimationsActivities = AnimationsActivities.SLIDE_HORIZONTAL,
-                                                              init: Intent.() -> Unit = {}) {
+inline fun <reified T : Activity> Activity.goToActivityResult(
+    requestCode: Int,
+    clear: Boolean = true,
+    animation: AnimationsActivities = AnimationsActivities.SLIDE_HORIZONTAL,
+    init: Intent.() -> Unit = {}
+) {
     val intent = Intent(this, T::class.java)
     if (clear) {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -73,6 +82,21 @@ inline fun <reified T : Activity> Activity.goToActivityResult(requestCode: Int,
         AnimationsActivities.SLIDE_VERTICAL -> overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
         AnimationsActivities.ZOOM -> overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out)
         AnimationsActivities.SCALE -> overridePendingTransition(R.anim.scale_in, R.anim.scale_out)
-        AnimationsActivities.NONE -> {}
+        AnimationsActivities.NONE -> {
+        }
     }
+}
+
+inline fun <reified T : ViewModel> FragmentActivity.getViewModel(): T {
+    return ViewModelProviders.of(this)[T::class.java]
+}
+
+@Suppress("UNCHECKED_CAST")
+inline fun <reified T : ViewModel> FragmentActivity.getViewModel(crossinline factory: () -> T): T {
+
+    val vmFactory = object : ViewModelProvider.Factory {
+        override fun <U : ViewModel> create(modelClass: Class<U>): U = factory() as U
+    }
+
+    return ViewModelProviders.of(this, vmFactory)[T::class.java]
 }

@@ -48,4 +48,11 @@
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="titleTextAppearance">@style/Toolbar</item>
     </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">?attr/colorPrimary</item>
+        <item name="colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="colorAccent">?attr/colorAccent</item>
+    </style>
+
 </resources>
