@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-class FirebaseLoginServiceImpl (var auth: FirebaseAuth) : LoginService {
+class FirebaseLoginServiceImpl (private var auth: FirebaseAuth) : LoginService {
 
     override suspend fun login(username: String, password: String) : Either<Failure, FirebaseUser> =
         suspendCancellableCoroutine { continuation ->
