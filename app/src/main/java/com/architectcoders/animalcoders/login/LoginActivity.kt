@@ -13,6 +13,7 @@ import com.architectcoders.animalcoders.tools.goToActivity
 import com.architectcoders.animalcoders.tools.hideKeyboard
 import com.architectcoders.domain.interactors.LoginInteractor
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -31,7 +32,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     //TODO: Hacerlo con Dagger o Koin
     private fun injection() {
-        val loginService = FirebaseLoginServiceImpl()
+        val loginService = FirebaseLoginServiceImpl(FirebaseAuth.getInstance())
         val loginRepository = LoginRepositoryImpl(loginService)
         val loginInteractor = LoginInteractor(loginRepository)
         viewModel = getViewModel { LoginViewModel(loginInteractor) }

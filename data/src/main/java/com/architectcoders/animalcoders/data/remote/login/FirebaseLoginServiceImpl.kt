@@ -1,14 +1,25 @@
 package com.architectcoders.animalcoders.data.remote.login
 
-import com.architectcoders.animalcoders.data.model.FirebaseResponse
+import arrow.core.Either
+import com.architectcoders.domain.model.Failure
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
-class FirebaseLoginServiceImpl : LoginService {
+class FirebaseLoginServiceImpl (var auth: FirebaseAuth) : LoginService {
 
-    //TODO: Hacer llamada real a Firebase
-    override suspend fun login(username: String, password: String) = when (username) {
-        "coders" -> FirebaseResponse("alvaro", "alvaroToken", true, null, false)
-        "http" -> FirebaseResponse(null, null, false, null, true)
-        else -> FirebaseResponse(null, null, false, "Contraseña incorrecta", false)
-    }
-
+    override suspend fun login(username: String, password: String) : Either<Failure, FirebaseUser> =
+        suspendCancellableCoroutine { continuation ->
+            auth.signInWithEmailAndPassword(username, password)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        auth.currentUser?.let{
+                            continuation.resume(Either.right(it))
+                        } ?:  continuation.resume(Either.left(Failure(Failure.Reason.USER_NOT_EXIST, null)))
+                    } else {
+                        continuation.resume(Either.left(Failure(Failure.Reason.API_ERROR, it.exception?.message)))
+                    }
+                }
+        }
 }

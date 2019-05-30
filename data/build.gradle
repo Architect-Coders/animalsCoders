@@ -35,4 +35,14 @@ dependencies {
 
     //ARROW
     implementation "io.arrow-kt:arrow-core-data:$arrow_version"
+
+    //Firebase
+    implementation "com.google.firebase:firebase-auth:$firebaseAuthLibVersion"
+    implementation "com.google.firebase:firebase-core:$firebaseCoreLibVersion"
+    implementation "com.google.firebase:firebase-config:$firebaseConfigLibVersion"
+    implementation "com.google.firebase:firebase-firestore:$firebaseFirestoreLibVersion"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutines"
 }
