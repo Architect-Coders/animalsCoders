@@ -14,8 +14,8 @@ class FirebaseLoginServiceImpl (var auth: FirebaseAuth) : LoginService {
             auth.signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        auth.currentUser?.let{
-                            continuation.resume(Either.right(it))
+                        auth.currentUser?.let{ user ->
+                            continuation.resume(Either.right(user))
                         } ?:  continuation.resume(Either.left(Failure(Failure.Reason.USER_NOT_EXIST, null)))
                     } else {
                         continuation.resume(Either.left(Failure(Failure.Reason.API_ERROR, it.exception?.message)))
