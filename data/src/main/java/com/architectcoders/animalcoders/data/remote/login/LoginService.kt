@@ -1,7 +1,9 @@
 package com.architectcoders.animalcoders.data.remote.login
 
-import com.architectcoders.animalcoders.data.model.FirebaseResponse
+import arrow.core.Either
+import com.architectcoders.domain.model.Failure
+import com.google.firebase.auth.FirebaseUser
 
 interface LoginService {
-    suspend fun login(username: String, password: String): FirebaseResponse
+    suspend fun login(username: String, password: String): Either<Failure, FirebaseUser>
 }
