@@ -5,37 +5,25 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.architectcoders.animalcoders.R
-import com.architectcoders.animalcoders.data.remote.login.FirebaseLoginServiceImpl
-import com.architectcoders.animalcoders.data.repository.LoginRepositoryImpl
 import com.architectcoders.animalcoders.main.MainActivity
-import com.architectcoders.animalcoders.tools.getViewModel
 import com.architectcoders.animalcoders.tools.goToActivity
 import com.architectcoders.animalcoders.tools.hideKeyboard
-import com.architectcoders.domain.interactors.LoginInteractor
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.android.scope.currentScope
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
-    lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by currentScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        injection()
         setListeners()
         viewModel.model.observe(this, Observer(::updateUi))
-    }
-
-    //TODO: Hacerlo con Dagger o Koin
-    private fun injection() {
-        val loginService = FirebaseLoginServiceImpl(FirebaseAuth.getInstance())
-        val loginRepository = LoginRepositoryImpl(loginService)
-        val loginInteractor = LoginInteractor(loginRepository)
-        viewModel = getViewModel { LoginViewModel(loginInteractor) }
     }
 
     private fun setListeners() {
@@ -44,15 +32,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-
-        when (view.id) {
+        return when (view.id) {
 
             R.id.bt_cancel -> cancelForm()
 
             R.id.bt_login -> validateCredentials()
 
-            else -> {
-            }
+            else -> { }
         }
     }
 

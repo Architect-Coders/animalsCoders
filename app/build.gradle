@@ -97,5 +97,8 @@ dependencies {
     //LifeCycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
+
+    //koin
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
 }
 apply plugin: 'com.google.gms.google-services'

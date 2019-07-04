@@ -58,4 +58,6 @@ ext {
     testJunitLibVersion = '4.12'
     testRunnerLibVersion = '1.1.1'
     testExpressoLibVersion = '3.1.1'
+
+    koinVersion ="2.0.1"
 }
