@@ -98,6 +98,7 @@ dependencies {
 
     //LifeCycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
 
     //koin

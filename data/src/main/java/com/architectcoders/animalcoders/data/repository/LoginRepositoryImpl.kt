@@ -24,7 +24,14 @@ class LoginRepositoryImpl(private val loginService: LoginService) : AuthReposito
     }
 
     override suspend fun createUser(username: String, password: String): Either<Failure, User> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return when (val result = loginService.register(username, password)) {
+            is Either.Left -> {
+                Either.left(result.a)
+            }
+            is Either.Right -> {
+                Either.right(User(result.b.email ?: "", result.b.displayName ?: ""))
+            }
+        }
     }
 
 }

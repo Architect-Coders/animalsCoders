@@ -11,6 +11,7 @@ import com.architectcoders.animalcoders.login.LoginViewModel
 import com.architectcoders.animalcoders.register.RegisterActivity
 import com.architectcoders.animalcoders.register.RegisterViewModel
 import com.architectcoders.domain.interactors.LoginInteractor
+import com.architectcoders.domain.interactors.RegisterInteractor
 import com.architectcoders.domain.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.koin.androidContext
@@ -48,7 +49,8 @@ private val scopesModule = module {
         //scoped { AnimalsInteractor(animalsRepository = get()) }
     }
     scope(named<RegisterActivity>()) {
-        viewModel { RegisterViewModel() }
+        viewModel { RegisterViewModel(get()) }
+        scoped { RegisterInteractor(get()) }
     }
 
 }
