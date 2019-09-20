@@ -23,7 +23,7 @@ class LoginRepositoryImpl(private val loginService: LoginService) : AuthReposito
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun createUser(username: String, password: String): Either<Failure, Unit> {
+    override suspend fun createUser(username: String, password: String): Either<Failure, User> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
