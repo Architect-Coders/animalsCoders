@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.main.MainActivity
+import com.architectcoders.animalcoders.register.RegisterActivity
 import com.architectcoders.animalcoders.tools.goToActivity
 import com.architectcoders.animalcoders.tools.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun setListeners() {
         bt_login.setOnClickListener(this)
         bt_cancel.setOnClickListener(this)
+        bt_register.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -38,7 +40,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.bt_login -> validateCredentials()
 
-            else -> { }
+            R.id.bt_register -> goToActivity<RegisterActivity>()
+
+            else -> {
+            }
         }
     }
 
@@ -82,7 +87,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showError(state: LoginViewState.Error) {
-        Snackbar.make(rl_login_container, state.errorMessage ?: getString(R.string.unknown_error), Snackbar.LENGTH_LONG)
+        Snackbar.make(
+            rl_login_container,
+            state.errorMessage ?: getString(R.string.unknown_error),
+            Snackbar.LENGTH_LONG
+        )
             .show()
     }
 
