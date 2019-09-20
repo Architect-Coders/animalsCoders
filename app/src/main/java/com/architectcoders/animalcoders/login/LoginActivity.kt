@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.bt_login -> validateCredentials()
 
-            R.id.bt_register -> goToActivity<RegisterActivity>()
+            R.id.bt_register -> goToActivity<RegisterActivity>(false)
 
             else -> {
             }
