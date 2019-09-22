@@ -6,24 +6,69 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.main.MainActivity
-import com.architectcoders.animalcoders.tools.goToActivity
-import com.architectcoders.animalcoders.tools.hideKeyboard
+import com.example.baseandroid.extensions.goToActivity
+import com.example.baseandroid.extensions.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
-import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
-    private val viewModel: LoginViewModel by currentScope.viewModel(this)
+    private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setListeners()
-        viewModel.model.observe(this, Observer(::updateUi))
+        viewModel.getViewTransition().observe(this, Observer {
+            manageTransitions(it)
+        })
+        viewModel.getViewState().observe(this, Observer {
+            manageState(it)
+        })
+        viewModel.initView()
+    }
+
+    private fun manageTransitions(transition: LoginViewTransition) {
+        when (transition) {
+            is LoginViewTransition.NavigateToHome -> {
+                hideKeyboard()
+                goToActivity<MainActivity>()
+            }
+        }
+    }
+
+    private fun manageState(state: LoginViewState) {
+        pb_wait.visibility = if (state is LoginViewState.Loading) View.VISIBLE else View.GONE
+
+        when (state) {
+            is LoginViewState.EmptyFields -> clearForm()
+            is LoginViewState.UsernameError -> {
+                clearUsernameError()
+                setUsernameError()
+            }
+            is LoginViewState.PasswordError -> {
+                clearPasswordError()
+                setPasswordError()
+            }
+            is LoginViewState.Error -> {
+                hideKeyboard()
+                showError(state)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        clearObservers()
+    }
+
+    private fun clearObservers() {
+        viewModel.getViewState().removeObservers(this)
+        viewModel.getViewTransition().removeObservers(this)
     }
 
     private fun setListeners() {
@@ -38,7 +83,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.bt_login -> validateCredentials()
 
-            else -> { }
+            else -> {
+            }
         }
     }
 
@@ -50,30 +96,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.validateCredentials(tie_username.text.toString(), tie_password.text.toString())
     }
 
-    private fun updateUi(model: LoginViewState) {
-        pb_wait.visibility = if (model is LoginViewState.Loading) View.VISIBLE else View.GONE
-
-        when (model) {
-            is LoginViewState.EmptyFields -> clearForm()
-            is LoginViewState.UsernameError -> {
-                clearUsernameError()
-                setUsernameError()
-            }
-            is LoginViewState.PasswordError -> {
-                clearPasswordError()
-                setPasswordError()
-            }
-            is LoginViewState.Error -> {
-                hideKeyboard()
-                showError(model)
-            }
-            is LoginViewState.NavigateToHome -> {
-                hideKeyboard()
-                goToActivity<MainActivity>()
-            }
-        }
-    }
-
     private fun clearForm() {
         clearUsername()
         clearUserPassword()
@@ -82,7 +104,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showError(state: LoginViewState.Error) {
-        Snackbar.make(rl_login_container, state.errorMessage ?: getString(R.string.unknown_error), Snackbar.LENGTH_LONG)
+        Snackbar.make(
+            rl_login_container,
+            state.errorMessage ?: getString(R.string.unknown_error),
+            Snackbar.LENGTH_LONG
+        )
             .show()
     }
 

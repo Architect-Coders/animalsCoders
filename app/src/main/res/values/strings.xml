@@ -9,4 +9,8 @@
     <string name="password_error">Password cannot be empty</string>
     <string name="accept">Accept</string>
     <string name="unknown_error">"Unknown error"</string>
+    <string name="tab_search">Search</string>
+    <string name="tab_map">Map</string>
+    <string name="tab_profile">Profile</string>
+    <string name="action_logout_text">Logout</string>
 </resources>

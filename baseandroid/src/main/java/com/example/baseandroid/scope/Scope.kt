@@ -1,4 +1,4 @@
-package com.architectcoders.animalcoders.tools
+package com.example.baseandroid.scope
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

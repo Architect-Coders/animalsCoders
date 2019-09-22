@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.data.repository.AnimalsRepositoryImpl
-import com.architectcoders.animalcoders.tools.getViewModel
 import com.architectcoders.domain.interactors.AnimalsInteractor
+import com.example.baseandroid.extensions.getViewModel
 
 class HomeActivity : AppCompatActivity() {
 
