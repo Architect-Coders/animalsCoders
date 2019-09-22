@@ -1,11 +1,11 @@
 buildscript {
 
     ext.fabric_version = '1.28.0'
-    ext.gradle_version = '3.4.0'
+    ext.gradle_version = '3.5.0'
     ext.google_services_version = '4.2.0'
-    ext.kotlin_version = '1.3.31'
+    ext.kotlin_version = '1.3.50'
     ext.arrow_version = '0.9.0'
-    ext.lifecycle = '2.0.0'
+    ext.lifecycle = '2.1.0'
 
     repositories {
         google()
@@ -39,18 +39,19 @@ ext {
     sdkMaxVersion = 28
     buildToolsLibVersion = '28.0.3'
 
-    compatLibVersion = '1.0.2'
+    compatLibVersion = '1.1.0'
     constraintLibVersion = '1.1.3'
-    coreKtxLibVersion = '1.1.0-alpha05'
-    crashlyticsLibVersion = '2.9.9'
+    coreKtxLibVersion = '1.1.0'
+    crashlyticsLibVersion = '2.10.1'
+    recyclerViewVersion = "1.0.0"
     // dexterLibVersion = '5.0.0' // Control de permisos
-    firebaseAuthLibVersion = '16.2.1'
-    firebaseCoreLibVersion = '16.0.8'
-    firebaseConfigLibVersion = '16.5.0'
-    firebaseFirestoreLibVersion = '18.2.0'
+    firebaseAuthLibVersion = '19.0.0'
+    firebaseCoreLibVersion = '17.2.0'
+    firebaseConfigLibVersion = '19.0.1'
+    firebaseFirestoreLibVersion = '21.1.1'
     // firebaseMessagingLibVersion = '17.6.0'
     // gsonLibVersion = '2.8.0'
-    materialLibVersion = '1.1.0-alpha05'
+    materialLibVersion = '1.0.0'
     // okhttp3LibVersion = '3.10.0'
     kotlinxCoroutines = '1.1.1'
     // retrofitLibVersion = '2.3.0'
@@ -59,5 +60,5 @@ ext {
     testRunnerLibVersion = '1.1.1'
     testExpressoLibVersion = '3.1.1'
 
-    koinVersion ="2.0.1"
+    koinVersion = "2.0.1"
 }

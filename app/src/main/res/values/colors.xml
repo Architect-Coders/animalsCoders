@@ -6,4 +6,6 @@
   <color name="colorAccent">#FF4081</color>
   <color name="colorPrimaryText">#000000</color>
   <color name="colorLauncher">#FF5722</color>
+  <color name="divider">#BDBDBD</color>
+  <color name="darkGray">#B9B9B9</color>
 </resources>

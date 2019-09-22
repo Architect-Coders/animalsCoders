@@ -1,60 +1,58 @@
 package com.architectcoders.animalcoders.login
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import arrow.core.Either
-import com.architectcoders.animalcoders.tools.Scope
 import com.architectcoders.domain.interactors.LoginInteractor
 import com.architectcoders.domain.model.Failure
-import kotlinx.coroutines.launch
+import com.example.baseandroid.coroutines.CoroutineDispatchers
+import com.example.baseandroid.viewmodel.BaseViewModel
+import kotlinx.coroutines.Job
 
-class LoginViewModel(private val interactor: LoginInteractor) : ViewModel(), Scope by Scope.Impl {
+class LoginViewModel(private val interactor: LoginInteractor, dispatchers: CoroutineDispatchers) :
+    BaseViewModel<LoginViewState, LoginViewTransition>(dispatchers = dispatchers) {
 
-    private val _model = MutableLiveData<LoginViewState>()
-    val model: LiveData<LoginViewState>
-        get() {
-            if (_model.value == null) initView()
-            return _model
-        }
+    private var serviceCall: Job? = null
 
-    init {
-        initScope()
-    }
-
-    private fun initView() {
-        _model.value = LoginViewState.EmptyFields
+    fun initView() {
+        viewState.value = LoginViewState.EmptyFields
     }
 
     fun cancelForm() {
-        _model.value = LoginViewState.EmptyFields
+        viewState.value = LoginViewState.EmptyFields
     }
 
-    fun validateCredentials(username: String, password: String) = launch {
-        _model.value = LoginViewState.Loading
-        when (val result = interactor.login(username, password)) {
-            is Either.Left -> {
-                Log.d("REASON: ", result.a.reason.toString())
-                when (result.a.reason) {
-                    Failure.Reason.BLANK_INVALID_USER -> _model.value = LoginViewState.UsernameError
-                    Failure.Reason.BLANK_INVALID_PASS -> _model.value = LoginViewState.PasswordError
-                    Failure.Reason.USER_NOT_EXIST -> _model.value = LoginViewState.Error(result.a.message)
-                    Failure.Reason.CONNECTION_ISSUES -> _model.value = LoginViewState.Error(result.a.message)
-                    else -> _model.value = LoginViewState.Error(result.a.message)
+    fun validateCredentials(username: String, password: String) {
+        viewState.value = LoginViewState.Loading
+        serviceCall = executeBackground {
+            when (val result = interactor.login(username, password)) {
+                is Either.Left -> {
+                    executeUI {
+                        Log.d("REASON: ", result.a.reason.toString())
+                        when (result.a.reason) {
+                            Failure.Reason.BLANK_INVALID_USER -> viewState.value =
+                                LoginViewState.UsernameError
+                            Failure.Reason.BLANK_INVALID_PASS -> viewState.value =
+                                LoginViewState.PasswordError
+                            Failure.Reason.USER_NOT_EXIST, Failure.Reason.CONNECTION_ISSUES -> viewState.value =
+                                LoginViewState.Error(result.a.message)
+                            else -> viewState.value = LoginViewState.Error(result.a.message)
+                        }
+                    }
                 }
-            }
-            is Either.Right -> {
-                Log.d("EMAIL: ", result.b.email)
-                _model.value = LoginViewState.EmptyFields
-                _model.value = LoginViewState.NavigateToHome
+                is Either.Right -> {
+                    executeUI {
+                        Log.d("EMAIL: ", result.b.email)
+                        viewState.value = LoginViewState.EmptyFields
+                        viewTransition.value = LoginViewTransition.NavigateToHome
+                    }
+                }
             }
         }
     }
 
     override fun onCleared() {
-        destroyScope()
         super.onCleared()
+        serviceCall?.cancel()
     }
 
 }

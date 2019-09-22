@@ -58,12 +58,22 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+androidExtensions {
+    experimental = true
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':domain')
     implementation project(path: ':data')
+    implementation project(path: ':baseandroid')
 
     implementation "androidx.appcompat:appcompat:$compatLibVersion"
     implementation "androidx.core:core-ktx:$coreKtxLibVersion"
@@ -96,9 +106,10 @@ dependencies {
 
     //LifeCycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
 
     //koin
     implementation "org.koin:koin-android-viewmodel:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
 }
 apply plugin: 'com.google.gms.google-services'

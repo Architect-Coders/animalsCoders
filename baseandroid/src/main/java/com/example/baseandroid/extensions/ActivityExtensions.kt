@@ -1,41 +1,18 @@
-package com.architectcoders.animalcoders.tools
+package com.example.baseandroid.extensions
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.architectcoders.animalcoders.R
-import com.architectcoders.animalcoders.enums.AnimationsActivities
-
-fun postDelayed(delayMillis: Long, task: () -> Unit) {
-    Handler().postDelayed(task, delayMillis)
-}
-
-fun View.show() = run { visibility = View.VISIBLE }
-fun View.hide() = run { visibility = View.GONE }
-
-fun View.hideKeyboard() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(windowToken, 0)
-}
+import com.example.baseandroid.R
+import com.example.baseandroid.enum.AnimationsActivities
 
 fun Activity.hideKeyboard() {
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     val token = findViewById<View>(android.R.id.content).rootView.windowToken
 
     imm.hideSoftInputFromWindow(token, 0)
-}
-
-fun isValidEmail(email: String): Boolean {
-    val pattern = Patterns.EMAIL_ADDRESS
-    return pattern.matcher(email).matches()
 }
 
 inline fun <reified T : Activity> Activity.goToActivity(
@@ -85,18 +62,4 @@ inline fun <reified T : Activity> Activity.goToActivityResult(
         AnimationsActivities.NONE -> {
         }
     }
-}
-
-inline fun <reified T : ViewModel> FragmentActivity.getViewModel(): T {
-    return ViewModelProviders.of(this)[T::class.java]
-}
-
-@Suppress("UNCHECKED_CAST")
-inline fun <reified T : ViewModel> FragmentActivity.getViewModel(crossinline factory: () -> T): T {
-
-    val vmFactory = object : ViewModelProvider.Factory {
-        override fun <U : ViewModel> create(modelClass: Class<U>): U = factory() as U
-    }
-
-    return ViewModelProviders.of(this, vmFactory)[T::class.java]
 }
