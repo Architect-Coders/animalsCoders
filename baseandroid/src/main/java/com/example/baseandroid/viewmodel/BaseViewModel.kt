@@ -31,7 +31,7 @@ abstract class BaseViewModel<State : Parcelable, Transition>(private val dispatc
         }
     }
 
-    suspend fun <T> executeBackgroundAsync(delay: Long = 0, param: suspend () -> T): Deferred<T> {
+    suspend fun <T>executeBackgroundAsync(delay: Long = 0, param: suspend () -> T): Deferred<T> {
         return GlobalScope.async(dispatchers.defaultDispatcher) {
             if (delay > 0) delay(delay)
             param()
@@ -43,5 +43,13 @@ abstract class BaseViewModel<State : Parcelable, Transition>(private val dispatc
             if (delay > 0) delay(delay)
             param()
         }
+    }
+
+    open fun init() {
+        // Implementation must be done in children that does not have to call services in the beginning.
+    }
+
+    open fun initServices() {
+        // Implementation must be done in children that have to call services in the beginning.
     }
 }

@@ -9,6 +9,9 @@ import com.architectcoders.animalcoders.data.repository.AuthRepositoryImpl
 import com.architectcoders.animalcoders.home.HomeViewModel
 import com.architectcoders.animalcoders.login.LoginViewModel
 import com.architectcoders.animalcoders.main.MainActivityViewModel
+import com.architectcoders.animalcoders.map.MapFragmentViewModel
+import com.architectcoders.animalcoders.profile.ProfileFragmentViewModel
+import com.architectcoders.animalcoders.search.SearchFragmentViewModel
 import com.architectcoders.domain.interactors.AnimalsInteractor
 import com.architectcoders.domain.interactors.AuthInteractor
 import com.architectcoders.domain.interactors.LoginInteractor
@@ -30,12 +33,12 @@ fun Application.initDI() {
 }
 
 private val appModule = module {
-
     viewModel { LoginViewModel(interactor = get(), dispatchers = get()) }
-
     viewModel { HomeViewModel(animalsInteractor = get()) }
-
     viewModel { MainActivityViewModel(authInteractor = get(), dispatchers = get()) }
+    viewModel { SearchFragmentViewModel(dispatchers = get()) }
+    viewModel { ProfileFragmentViewModel(dispatchers = get()) }
+    viewModel { MapFragmentViewModel(dispatchers = get()) }
 }
 
 private val domainModule = module {
