@@ -24,7 +24,7 @@ class MainActivityViewModel(
                 is Either.Left -> {
                     executeUI {
                         Log.d("REASON: ", result.a.reason.toString())
-                        if (result.a.reason == Failure.Reason.BLANK_INVALID_USER) viewTransition.value =
+                        if (result.a.reason == Failure.Reason.USER_NOT_EXIST) viewTransition.value =
                             MainActivityViewTransition.NavigateToLogin
                     }
                 }
