@@ -30,6 +30,8 @@ class SearchFragment :
     }
 
     companion object {
+        val TAG: String = SearchFragment::class.java.simpleName
+
         fun newInstance(): SearchFragment {
             return SearchFragment()
         }

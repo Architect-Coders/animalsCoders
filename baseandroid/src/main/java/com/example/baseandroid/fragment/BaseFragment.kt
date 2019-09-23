@@ -37,6 +37,8 @@ abstract class BaseFragment<
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        initView()
+
         if (savedInstanceState != null) {
             viewCreated = true
             isRecreated = true
@@ -55,7 +57,6 @@ abstract class BaseFragment<
             viewModel.init()
         }
 
-        initView()
         viewModel.initServices()
         initListeners()
         initObservers()

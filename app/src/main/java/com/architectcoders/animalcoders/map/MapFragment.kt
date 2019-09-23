@@ -28,6 +28,8 @@ class MapFragment :
     }
 
     companion object {
+        val TAG: String = MapFragment::class.java.simpleName
+
         fun newInstance(): MapFragment {
             return MapFragment()
         }

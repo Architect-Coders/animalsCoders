@@ -18,7 +18,12 @@ class MainActivityViewModel(
     private var serviceLogOutCall: Job? = null
 
     override fun init() {
-        viewState.value = MainActivityViewState.InitialState
+        viewState.value = MainActivityViewState.SearchState
+        viewTransition.value = MainActivityViewTransition.NavigateToSearch
+    }
+
+    override fun initServices() {
+        super.initServices()
         serviceAuthCall = executeBackground {
             when (val result = authInteractor.getCurrentUser()) {
                 is Either.Left -> {
@@ -29,11 +34,7 @@ class MainActivityViewModel(
                     }
                 }
                 is Either.Right -> {
-                    executeUI {
-                        Log.d("EMAIL: ", result.b.email)
-                        viewTransition.value = MainActivityViewTransition.NavigateToSearch
-
-                    }
+                    Log.d("EMAIL: ", result.b.email)
                 }
             }
         }
@@ -51,6 +52,32 @@ class MainActivityViewModel(
         super.onCleared()
         serviceAuthCall?.cancel()
         serviceLogOutCall?.cancel()
+    }
+
+    fun onSearchTabClicked() {
+        if (viewState.value != MainActivityViewState.SearchState) {
+            viewState.value =
+                MainActivityViewState.SearchState
+            viewTransition.value = MainActivityViewTransition.NavigateToSearch
+        }
+
+    }
+
+    fun onMapTabClicked() {
+        if (viewState.value != MainActivityViewState.MapState) {
+            viewState.value =
+                MainActivityViewState.MapState
+            viewTransition.value = MainActivityViewTransition.NavigateToMap
+        }
+
+    }
+
+    fun onProfileTabClicked() {
+        if (viewState.value != MainActivityViewState.ProfileState) {
+            viewState.value =
+                MainActivityViewState.ProfileState
+            viewTransition.value = MainActivityViewTransition.NavigateToProfile
+        }
     }
 
 }

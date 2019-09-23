@@ -30,6 +30,8 @@ class ProfileFragment :
     }
 
     companion object {
+        val TAG: String = ProfileFragment::class.java.simpleName
+
         fun newInstance(): ProfileFragment {
             return ProfileFragment()
         }

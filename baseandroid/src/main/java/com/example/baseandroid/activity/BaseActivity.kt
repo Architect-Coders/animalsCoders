@@ -18,6 +18,8 @@ abstract class BaseActivity<ViewState : Parcelable, ViewTransition, ViewModel : 
 
         setContentView(getLayout())
 
+        initView()
+
         if (savedInstanceState != null) {
             savedInstanceState.getParcelable<ViewState>(VIEW_STATE)?.let { viewState ->
                 viewModel.setViewState(viewState)
@@ -26,7 +28,6 @@ abstract class BaseActivity<ViewState : Parcelable, ViewTransition, ViewModel : 
             viewModel.init()
         }
 
-        initView()
         viewModel.initServices()
         initListeners()
         initObservers()
@@ -87,6 +88,10 @@ abstract class BaseActivity<ViewState : Parcelable, ViewTransition, ViewModel : 
         } else {
             super.onBackPressed()
         }
+    }
+
+    open fun configview(){
+
     }
 
     companion object {
