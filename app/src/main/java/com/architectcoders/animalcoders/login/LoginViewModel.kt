@@ -13,7 +13,7 @@ class LoginViewModel(private val interactor: LoginInteractor, dispatchers: Corou
 
     private var serviceCall: Job? = null
 
-    fun initView() {
+    override fun init() {
         viewState.value = LoginViewState.EmptyFields
     }
 
