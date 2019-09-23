@@ -13,19 +13,18 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MainActivity :
     BaseActivity<MainActivityViewState, MainActivityViewTransition, MainActivityViewModel>() {
 
-    override fun getActivityViewModel(): MainActivityViewModel =
-        this.viewModel<MainActivityViewModel>().value
+    override val viewModel: MainActivityViewModel by viewModel()
 
     override fun getLayout(): Int = R.layout.activity_main
 
     override fun initView() {
-        viewModel.initView()
+        //view configurations, adapter initialization
+        setSupportActionBar(MainToolbar)
     }
 
     override fun manageState(state: MainActivityViewState) {
         when (state) {
             is MainActivityViewState.InitialState -> {
-                setSupportActionBar(MainToolbar)
                 MainBottomNav.selectedItemId = R.id.bottom_action_search
             }
         }

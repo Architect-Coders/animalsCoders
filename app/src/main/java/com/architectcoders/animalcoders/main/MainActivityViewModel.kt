@@ -17,7 +17,7 @@ class MainActivityViewModel(
     private var serviceAuthCall: Job? = null
     private var serviceLogOutCall: Job? = null
 
-    fun initView() {
+    override fun init() {
         viewState.value = MainActivityViewState.InitialState
         serviceAuthCall = executeBackground {
             when (val result = authInteractor.getCurrentUser()) {
