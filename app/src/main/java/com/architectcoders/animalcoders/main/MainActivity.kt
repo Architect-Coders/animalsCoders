@@ -5,7 +5,6 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.login.LoginActivity
-import com.architectcoders.animalcoders.map.MapFragment
 import com.architectcoders.animalcoders.profile.ProfileFragment
 import com.architectcoders.animalcoders.search.SearchFragment
 import com.example.baseandroid.activity.BaseActivity
@@ -19,7 +18,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MainActivity :
     BaseActivity<MainActivityViewState, MainActivityViewTransition, MainActivityViewModel>() {
 
-    var stateExecuted = false
+    private var stateExecuted = false
 
     override val viewModel: MainActivityViewModel by viewModel()
 

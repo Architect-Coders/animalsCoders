@@ -13,4 +13,9 @@
     <string name="tab_map">Map</string>
     <string name="tab_profile">Profile</string>
     <string name="action_logout_text">Logout</string>
+
+    <!-- Api -->
+    <string name="api_key">QVSiWHOa</string>
+    <string name="api_url">https://test1-api.rescuegroups.org/v5/public/</string>
+
 </resources>

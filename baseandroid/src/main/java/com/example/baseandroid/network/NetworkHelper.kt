@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference
 
 class NetworkHelper(context: Context) {
 
-    val context: WeakReference<Context> = WeakReference(context)
+    private val context: WeakReference<Context> = WeakReference(context)
 
     @SuppressLint("MissingPermission")
     fun isNetworkAvailable(): Boolean {

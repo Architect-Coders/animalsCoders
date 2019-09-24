@@ -19,7 +19,7 @@ class HomeActivity : AppCompatActivity() {
 
     //TODO: Hacerlo con Dagger o Koin
     private fun injection() {
-        val animalsInteractor = AnimalsInteractor(AnimalsRepositoryImpl())
-        viewModel = getViewModel { HomeViewModel(animalsInteractor) }
+        //val animalsInteractor = AnimalsInteractor(AnimalsRepositoryImpl())
+        //viewModel = getViewModel { HomeViewModel(animalsInteractor) }
     }
 }
