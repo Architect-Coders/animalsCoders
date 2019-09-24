@@ -15,6 +15,7 @@ class SearchFragment :
 
     override fun initView() {
         //view configurations, adapter initialization
+        viewModel.getAnimals()
     }
 
     override fun manageState(state: SearchFragmentViewState) {

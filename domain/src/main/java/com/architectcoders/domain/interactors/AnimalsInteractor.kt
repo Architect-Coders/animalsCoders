@@ -4,7 +4,5 @@ import com.architectcoders.domain.repository.AnimalsRepository
 
 class AnimalsInteractor(private val animalsRepository: AnimalsRepository) {
 
-    suspend fun getAnimals() {
-        TODO()
-    }
+    suspend fun getAnimals() = animalsRepository.getAnimals()
 }
