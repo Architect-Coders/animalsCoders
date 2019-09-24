@@ -5,6 +5,7 @@ import com.architectcoders.animalcoders.data.remote.auth.AuthService
 import com.architectcoders.animalcoders.data.remote.auth.FirebaseAuthServiceImpl
 import com.architectcoders.animalcoders.data.remote.login.FirebaseLoginServiceImpl
 import com.architectcoders.animalcoders.data.remote.login.LoginService
+import com.architectcoders.animalcoders.data.repository.AnimalsRepositoryImpl
 import com.architectcoders.animalcoders.data.repository.AuthRepositoryImpl
 import com.architectcoders.animalcoders.home.HomeViewModel
 import com.architectcoders.animalcoders.login.LoginViewModel
@@ -15,6 +16,7 @@ import com.architectcoders.animalcoders.search.SearchFragmentViewModel
 import com.architectcoders.domain.interactors.AnimalsInteractor
 import com.architectcoders.domain.interactors.AuthInteractor
 import com.architectcoders.domain.interactors.LoginInteractor
+import com.architectcoders.domain.repository.AnimalsRepository
 import com.architectcoders.domain.repository.AuthRepository
 import com.example.baseandroid.di.baseModule
 import com.google.firebase.auth.FirebaseAuth
@@ -36,7 +38,7 @@ private val appModule = module {
     viewModel { LoginViewModel(interactor = get(), dispatchers = get()) }
     viewModel { HomeViewModel(animalsInteractor = get()) }
     viewModel { MainActivityViewModel(authInteractor = get(), dispatchers = get()) }
-    viewModel { SearchFragmentViewModel(dispatchers = get()) }
+    viewModel { SearchFragmentViewModel(interactor = get(), dispatchers = get()) }
     viewModel { ProfileFragmentViewModel(dispatchers = get()) }
     viewModel { MapFragmentViewModel(dispatchers = get()) }
 }
@@ -51,4 +53,5 @@ private val dataModule = module {
     factory<AuthService> { FirebaseAuthServiceImpl(FirebaseAuth.getInstance()) }
     factory<LoginService> { FirebaseLoginServiceImpl(FirebaseAuth.getInstance()) }
     factory<AuthRepository> { AuthRepositoryImpl(loginService = get(), authService = get()) }
+    factory<AnimalsRepository> { AnimalsRepositoryImpl() }
 }
