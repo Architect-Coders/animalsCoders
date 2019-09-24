@@ -2,7 +2,6 @@ package com.example.baseandroid.activity
 
 import android.os.Bundle
 import android.os.Parcelable
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.baseandroid.fragment.BaseFragment

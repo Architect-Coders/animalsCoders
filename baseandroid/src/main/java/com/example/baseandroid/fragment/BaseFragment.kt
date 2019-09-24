@@ -22,7 +22,7 @@ abstract class BaseFragment<
     private var alertDialog: AlertDialog? = null
 
     private var viewCreated = false
-    protected var isRecreated = false
+    private var isRecreated = false
 
     override fun onCreateView(
         inflater: LayoutInflater,

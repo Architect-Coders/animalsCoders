@@ -2,10 +2,7 @@ package com.architectcoders.animalcoders.search
 
 import android.util.Log
 import arrow.core.Either
-import com.architectcoders.animalcoders.login.LoginViewState
-import com.architectcoders.animalcoders.login.LoginViewTransition
 import com.architectcoders.domain.interactors.AnimalsInteractor
-import com.architectcoders.domain.model.Failure
 import com.example.baseandroid.coroutines.CoroutineDispatchers
 import com.example.baseandroid.viewmodel.BaseViewModel
 import kotlinx.coroutines.Job
@@ -33,6 +30,11 @@ class SearchFragmentViewModel(private val interactor: AnimalsInteractor, dispatc
             }
         }
 
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        serviceCall?.cancel()
     }
 
 
