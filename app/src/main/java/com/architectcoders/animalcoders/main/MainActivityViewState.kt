@@ -5,5 +5,11 @@ import kotlinx.android.parcel.Parcelize
 
 sealed class MainActivityViewState : Parcelable {
     @Parcelize
+    object SearchState: MainActivityViewState()
+    @Parcelize
+    object MapState: MainActivityViewState()
+    @Parcelize
+    object ProfileState: MainActivityViewState()
+    @Parcelize
     object InitialState: MainActivityViewState()
 }

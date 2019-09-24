@@ -1,11 +1,10 @@
 package com.architectcoders.animalcoders.login
 
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.main.MainActivity
+import com.example.baseandroid.activity.BaseActivity
+import com.example.baseandroid.click.setSafeOnClickListener
 import com.example.baseandroid.extensions.goToActivity
 import com.example.baseandroid.extensions.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
@@ -13,25 +12,17 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+class LoginActivity : BaseActivity<LoginViewState, LoginViewTransition, LoginViewModel>() {
 
-    private val viewModel: LoginViewModel by viewModel()
+    override val viewModel: LoginViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        setListeners()
-        viewModel.getViewTransition().observe(this, Observer {
-            manageTransitions(it)
-        })
-        viewModel.getViewState().observe(this, Observer {
-            manageState(it)
-        })
-        viewModel.initView()
+    override fun getLayout(): Int = R.layout.activity_login
+
+    override fun initView() {
+        //view configurations, adapter initialization
     }
 
-    private fun manageTransitions(transition: LoginViewTransition) {
+    override fun manageTransition(transition: LoginViewTransition) {
         when (transition) {
             is LoginViewTransition.NavigateToHome -> {
                 hideKeyboard()
@@ -40,7 +31,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun manageState(state: LoginViewState) {
+    override fun manageState(state: LoginViewState) {
         pb_wait.visibility = if (state is LoginViewState.Loading) View.VISIBLE else View.GONE
 
         when (state) {
@@ -60,31 +51,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        clearObservers()
-    }
-
-    private fun clearObservers() {
-        viewModel.getViewState().removeObservers(this)
-        viewModel.getViewTransition().removeObservers(this)
-    }
-
-    private fun setListeners() {
-        bt_login.setOnClickListener(this)
-        bt_cancel.setOnClickListener(this)
-    }
-
-    override fun onClick(view: View) {
-        return when (view.id) {
-
-            R.id.bt_cancel -> cancelForm()
-
-            R.id.bt_login -> validateCredentials()
-
-            else -> {
-            }
+    override fun initListeners() {
+        bt_login.setSafeOnClickListener {
+            validateCredentials()
+        }
+        bt_cancel.setSafeOnClickListener {
+            cancelForm()
         }
     }
 
