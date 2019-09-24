@@ -38,10 +38,10 @@ class MainActivity :
                 setSupportActionBarTitle(getString(R.string.tab_search))
                 MainBottomNav.selectedItemId = R.id.bottom_action_search
             }
-            MainActivityViewState.MapState -> {
+            /*MainActivityViewState.MapState -> {
                 setSupportActionBarTitle(getString(R.string.tab_map))
                 MainBottomNav.selectedItemId = R.id.bottom_action_map
-            }
+            }*/
             MainActivityViewState.ProfileState -> {
                 setSupportActionBarTitle(getString(R.string.tab_profile))
                 MainBottomNav.selectedItemId = R.id.bottom_action_profile
@@ -58,9 +58,9 @@ class MainActivity :
             is MainActivityViewTransition.NavigateToSearch -> {
                 replaceTabFragment(TabType.SEARCH)
             }
-            is MainActivityViewTransition.NavigateToMap -> {
+            /*is MainActivityViewTransition.NavigateToMap -> {
                 replaceTabFragment(TabType.MAP)
-            }
+            }*/
             is MainActivityViewTransition.NavigateToProfile -> {
                 replaceTabFragment(TabType.PROFILE)
             }
@@ -78,13 +78,13 @@ class MainActivity :
                     true
                 }
 
-                R.id.bottom_action_map -> {
+                /*R.id.bottom_action_map -> {
                     if (!stateExecuted) {
                         viewModel.onMapTabClicked()
                     }
                     stateExecuted = false
                     true
-                }
+                }*/
 
                 R.id.bottom_action_profile -> {
                     if (!stateExecuted) {
@@ -133,11 +133,11 @@ class MainActivity :
                 getCurrentFragment(SearchFragment.TAG)
                     ?: addFragmentToStack(SearchFragment.newInstance(), SearchFragment.TAG)
             }
-            TabType.MAP -> {
+            /*TabType.MAP -> {
                 getCurrentFragment(MapFragment.TAG) ?: addFragmentToStack(
                     MapFragment.newInstance(), MapFragment.TAG
                 )
-            }
+            }*/
             TabType.PROFILE -> {
                 getCurrentFragment(ProfileFragment.TAG)
                     ?: addFragmentToStack(ProfileFragment.newInstance(), ProfileFragment.TAG)
@@ -147,25 +147,25 @@ class MainActivity :
         fragment?.run {
             when (this) {
                 is SearchFragment -> {
-                    getCurrentFragment(MapFragment.TAG)?.let {
+                    /*getCurrentFragment(MapFragment.TAG)?.let {
                         fragmentTransaction.hide(it)
-                    }
+                    }*/
                     getCurrentFragment(ProfileFragment.TAG)?.let {
                         fragmentTransaction.hide(it)
                     }
                 }
-                is MapFragment -> {
+                /*is MapFragment -> {
                     getCurrentFragment(SearchFragment.TAG)?.let {
                         fragmentTransaction.hide(it)
                     }
                     getCurrentFragment(ProfileFragment.TAG)?.let {
                         fragmentTransaction.hide(it)
                     }
-                }
+                }*/
                 is ProfileFragment -> {
-                    getCurrentFragment(MapFragment.TAG)?.let {
+                    /*getCurrentFragment(MapFragment.TAG)?.let {
                         fragmentTransaction.hide(it)
-                    }
+                    }*/
                     getCurrentFragment(SearchFragment.TAG)?.let {
                         fragmentTransaction.hide(it)
                     }

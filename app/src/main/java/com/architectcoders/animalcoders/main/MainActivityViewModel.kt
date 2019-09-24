@@ -63,14 +63,14 @@ class MainActivityViewModel(
 
     }
 
-    fun onMapTabClicked() {
+    /*fun onMapTabClicked() {
         if (viewState.value != MainActivityViewState.MapState) {
             viewState.value =
                 MainActivityViewState.MapState
             viewTransition.value = MainActivityViewTransition.NavigateToMap
         }
 
-    }
+    }*/
 
     fun onProfileTabClicked() {
         if (viewState.value != MainActivityViewState.ProfileState) {
