@@ -10,7 +10,6 @@ import com.architectcoders.animalcoders.data.remote.login.FirebaseLoginServiceIm
 import com.architectcoders.animalcoders.data.remote.login.LoginService
 import com.architectcoders.animalcoders.data.repository.AnimalsRepositoryImpl
 import com.architectcoders.animalcoders.data.repository.AuthRepositoryImpl
-import com.architectcoders.animalcoders.home.HomeViewModel
 import com.architectcoders.animalcoders.login.LoginViewModel
 import com.architectcoders.animalcoders.main.MainActivityViewModel
 import com.architectcoders.animalcoders.map.MapFragmentViewModel
@@ -47,7 +46,6 @@ fun Application.initDI() {
 
 private val appModule = module {
     viewModel { LoginViewModel(interactor = get(), dispatchers = get()) }
-    viewModel { HomeViewModel(animalsInteractor = get()) }
     viewModel { MainActivityViewModel(authInteractor = get(), dispatchers = get()) }
     viewModel { SearchFragmentViewModel(interactor = get(), dispatchers = get()) }
     viewModel { ProfileFragmentViewModel(dispatchers = get()) }
