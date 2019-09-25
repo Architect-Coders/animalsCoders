@@ -7,6 +7,7 @@ import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.login.LoginActivity
 import com.architectcoders.animalcoders.profile.ProfileFragment
 import com.architectcoders.animalcoders.search.SearchFragment
+import com.architectcoders.animalcoders.search.detail.AnimalDetailActivity
 import com.example.baseandroid.activity.BaseActivity
 import com.example.baseandroid.extensions.addFragment
 import com.example.baseandroid.extensions.getCurrentFragment
@@ -62,6 +63,11 @@ class MainActivity :
             }*/
             is MainActivityViewTransition.NavigateToProfile -> {
                 replaceTabFragment(TabType.PROFILE)
+            }
+            is MainActivityViewTransition.NavigateToAnimalDetail -> {
+                goToActivity<AnimalDetailActivity>(clear = false){
+                    putExtra(AnimalDetailActivity.ANIMAL, transition.animal)
+                }
             }
         }
     }
@@ -172,6 +178,18 @@ class MainActivity :
             }
             fragmentTransaction.show(this)
             fragmentTransaction.commit()
+        }
+    }
+
+    override fun onAttachFragment(fragment: Fragment) {
+        when (fragment) {
+            is SearchFragment -> {
+                fragment.run {
+                    navigateToDetail = { animal ->
+                        this@MainActivity.viewModel.navigateToDetail(animal)
+                    }
+                }
+            }
         }
     }
 }
