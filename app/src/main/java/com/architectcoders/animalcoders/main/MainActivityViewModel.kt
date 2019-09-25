@@ -3,6 +3,7 @@ package com.architectcoders.animalcoders.main
 import android.util.Log
 import arrow.core.Either
 import com.architectcoders.domain.interactors.AuthInteractor
+import com.architectcoders.domain.model.Animal
 import com.architectcoders.domain.model.Failure
 import com.example.baseandroid.coroutines.CoroutineDispatchers
 import com.example.baseandroid.viewmodel.BaseViewModel
@@ -78,6 +79,10 @@ class MainActivityViewModel(
                 MainActivityViewState.ProfileState
             viewTransition.value = MainActivityViewTransition.NavigateToProfile
         }
+    }
+
+    fun navigateToDetail(animal: Animal) {
+        viewTransition.value = MainActivityViewTransition.NavigateToAnimalDetail(animal)
     }
 
 }

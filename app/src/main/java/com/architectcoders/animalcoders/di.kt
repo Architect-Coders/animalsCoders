@@ -15,9 +15,11 @@ import com.architectcoders.animalcoders.main.MainActivityViewModel
 import com.architectcoders.animalcoders.map.MapFragmentViewModel
 import com.architectcoders.animalcoders.profile.ProfileFragmentViewModel
 import com.architectcoders.animalcoders.search.SearchFragmentViewModel
+import com.architectcoders.animalcoders.search.detail.AnimalDetailActivityViewModel
 import com.architectcoders.domain.interactors.AnimalsInteractor
 import com.architectcoders.domain.interactors.AuthInteractor
 import com.architectcoders.domain.interactors.LoginInteractor
+import com.architectcoders.domain.model.Animal
 import com.architectcoders.domain.repository.AnimalsRepository
 import com.architectcoders.domain.repository.AuthRepository
 import com.example.baseandroid.di.baseModule
@@ -30,7 +32,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -50,6 +51,12 @@ private val appModule = module {
     viewModel { SearchFragmentViewModel(interactor = get(), dispatchers = get()) }
     viewModel { ProfileFragmentViewModel(dispatchers = get()) }
     viewModel { MapFragmentViewModel(dispatchers = get()) }
+    viewModel { (animal: Animal?) ->
+        AnimalDetailActivityViewModel(
+            animal = animal,
+            dispatchers = get()
+        )
+    }
 }
 
 private val domainModule = module {
