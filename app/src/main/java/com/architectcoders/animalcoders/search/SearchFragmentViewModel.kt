@@ -7,8 +7,10 @@ import com.example.baseandroid.coroutines.CoroutineDispatchers
 import com.example.baseandroid.viewmodel.BaseViewModel
 import kotlinx.coroutines.Job
 
-class SearchFragmentViewModel(private val interactor: AnimalsInteractor, dispatchers: CoroutineDispatchers)
-    : BaseViewModel<SearchFragmentViewState, SearchFragmentViewTransition>(dispatchers = dispatchers) {
+class SearchFragmentViewModel(
+    private val interactor: AnimalsInteractor,
+    dispatchers: CoroutineDispatchers
+) : BaseViewModel<SearchFragmentViewState, SearchFragmentViewTransition>(dispatchers = dispatchers) {
 
     private var serviceCall: Job? = null
 
@@ -25,6 +27,7 @@ class SearchFragmentViewModel(private val interactor: AnimalsInteractor, dispatc
                 is Either.Right -> {
                     executeUI {
                         Log.d("EMAIL: ", result.b.toString())
+                        viewState.value = SearchFragmentViewState.DrawAnimals(result.b)
                     }
                 }
             }
