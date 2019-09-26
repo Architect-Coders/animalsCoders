@@ -64,4 +64,8 @@ ext {
 
     okhttpVersion = '4.0.0'
     retrofitVersion = '2.6.0'
+
+    glidVersion = '4.9.0'
+
+    circleVersion = '2.2.0'
 }
