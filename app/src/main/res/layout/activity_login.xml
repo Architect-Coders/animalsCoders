@@ -70,10 +70,11 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/til_password"
+            android:layout_below="@+id/bt_cancel"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_toStartOf="@+id/bt_cancel"
             android:text="@string/register"
+            android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimaryLight" />
 
     <com.google.android.material.button.MaterialButton

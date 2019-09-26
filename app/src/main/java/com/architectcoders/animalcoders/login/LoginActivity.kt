@@ -3,6 +3,7 @@ package com.architectcoders.animalcoders.login
 import android.view.View
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.main.MainActivity
+import com.architectcoders.animalcoders.register.RegisterActivity
 import com.example.baseandroid.activity.BaseActivity
 import com.example.baseandroid.click.setSafeOnClickListener
 import com.example.baseandroid.extensions.goToActivity
@@ -27,6 +28,10 @@ class LoginActivity : BaseActivity<LoginViewState, LoginViewTransition, LoginVie
             is LoginViewTransition.NavigateToHome -> {
                 hideKeyboard()
                 goToActivity<MainActivity>()
+            }
+            is LoginViewTransition.NavigateToRegister ->{
+                hideKeyboard()
+                goToActivity<RegisterActivity>(false)
             }
         }
     }
@@ -58,6 +63,9 @@ class LoginActivity : BaseActivity<LoginViewState, LoginViewTransition, LoginVie
         bt_cancel.setSafeOnClickListener {
             cancelForm()
         }
+        bt_register.setSafeOnClickListener {
+            goToRegister()
+        }
     }
 
     private fun cancelForm() {
@@ -66,6 +74,10 @@ class LoginActivity : BaseActivity<LoginViewState, LoginViewTransition, LoginVie
 
     private fun validateCredentials() {
         viewModel.validateCredentials(tie_username.text.toString(), tie_password.text.toString())
+    }
+
+    private fun goToRegister() {
+        viewModel.onRegisterClicked()
     }
 
     private fun clearForm() {
