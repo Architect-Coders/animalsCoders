@@ -8,6 +8,7 @@ import com.architectcoders.animalcoders.login.LoginActivity
 import com.architectcoders.animalcoders.profile.ProfileFragment
 import com.architectcoders.animalcoders.search.SearchFragment
 import com.architectcoders.animalcoders.search.detail.AnimalDetailActivity
+import com.architectcoders.animalcoders.search.favourites.FavouritesActivity
 import com.example.baseandroid.activity.BaseActivity
 import com.example.baseandroid.extensions.addFragment
 import com.example.baseandroid.extensions.getCurrentFragment
@@ -38,10 +39,6 @@ class MainActivity :
                 setSupportActionBarTitle(getString(R.string.tab_search))
                 MainBottomNav.selectedItemId = R.id.bottom_action_search
             }
-            /*MainActivityViewState.MapState -> {
-                setSupportActionBarTitle(getString(R.string.tab_map))
-                MainBottomNav.selectedItemId = R.id.bottom_action_map
-            }*/
             MainActivityViewState.ProfileState -> {
                 setSupportActionBarTitle(getString(R.string.tab_profile))
                 MainBottomNav.selectedItemId = R.id.bottom_action_profile
@@ -58,15 +55,16 @@ class MainActivity :
             is MainActivityViewTransition.NavigateToSearch -> {
                 replaceTabFragment(TabType.SEARCH)
             }
-            /*is MainActivityViewTransition.NavigateToMap -> {
-                replaceTabFragment(TabType.MAP)
-            }*/
             is MainActivityViewTransition.NavigateToProfile -> {
                 replaceTabFragment(TabType.PROFILE)
             }
             is MainActivityViewTransition.NavigateToAnimalDetail -> {
-                goToActivity<AnimalDetailActivity>(clear = false){
+                goToActivity<AnimalDetailActivity>(clear = false) {
                     putExtra(AnimalDetailActivity.ANIMAL, transition.animal)
+                }
+            }
+            is MainActivityViewTransition.NavigateToFavourites ->{
+                goToActivity<FavouritesActivity>(clear = false) {
                 }
             }
         }
@@ -82,15 +80,6 @@ class MainActivity :
                     stateExecuted = false
                     true
                 }
-
-                /*R.id.bottom_action_map -> {
-                    if (!stateExecuted) {
-                        viewModel.onMapTabClicked()
-                    }
-                    stateExecuted = false
-                    true
-                }*/
-
                 R.id.bottom_action_profile -> {
                     if (!stateExecuted) {
                         viewModel.onProfileTabClicked()
@@ -138,11 +127,6 @@ class MainActivity :
                 getCurrentFragment(SearchFragment.TAG)
                     ?: addFragmentToStack(SearchFragment.newInstance(), SearchFragment.TAG)
             }
-            /*TabType.MAP -> {
-                getCurrentFragment(MapFragment.TAG) ?: addFragmentToStack(
-                    MapFragment.newInstance(), MapFragment.TAG
-                )
-            }*/
             TabType.PROFILE -> {
                 getCurrentFragment(ProfileFragment.TAG)
                     ?: addFragmentToStack(ProfileFragment.newInstance(), ProfileFragment.TAG)
@@ -152,25 +136,11 @@ class MainActivity :
         fragment?.run {
             when (this) {
                 is SearchFragment -> {
-                    /*getCurrentFragment(MapFragment.TAG)?.let {
-                        fragmentTransaction.hide(it)
-                    }*/
                     getCurrentFragment(ProfileFragment.TAG)?.let {
                         fragmentTransaction.hide(it)
                     }
                 }
-                /*is MapFragment -> {
-                    getCurrentFragment(SearchFragment.TAG)?.let {
-                        fragmentTransaction.hide(it)
-                    }
-                    getCurrentFragment(ProfileFragment.TAG)?.let {
-                        fragmentTransaction.hide(it)
-                    }
-                }*/
                 is ProfileFragment -> {
-                    /*getCurrentFragment(MapFragment.TAG)?.let {
-                        fragmentTransaction.hide(it)
-                    }*/
                     getCurrentFragment(SearchFragment.TAG)?.let {
                         fragmentTransaction.hide(it)
                     }
@@ -187,6 +157,16 @@ class MainActivity :
                 fragment.run {
                     navigateToDetail = { animal ->
                         this@MainActivity.viewModel.navigateToDetail(animal)
+                    }
+                }
+            }
+            is ProfileFragment -> {
+                fragment.run {
+                    navigateToLogin = {
+                        this@MainActivity.viewModel.logOut()
+                    }
+                    navigateToFavourites = {
+                        this@MainActivity.viewModel.navigateToFavourites()
                     }
                 }
             }

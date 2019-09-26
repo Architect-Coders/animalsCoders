@@ -8,4 +8,10 @@ interface AnimalsRepository {
 
     suspend fun getAnimals(): Either<Failure, List<Animal>>
 
+    suspend fun getFavourites(): Either<Failure, List<Animal>>
+
+    suspend fun saveFavourite(animal: Animal)
+
+    suspend fun deleteFavourite(id: Int)
+
 }
