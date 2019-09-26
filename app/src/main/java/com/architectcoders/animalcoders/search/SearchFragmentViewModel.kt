@@ -21,7 +21,7 @@ class SearchFragmentViewModel(
     }
 
 
-    fun getAnimals() {
+    private fun getAnimals() {
         serviceCall = executeBackground {
             when (val result = interactor.getAnimals()) {
                 is Either.Left -> {

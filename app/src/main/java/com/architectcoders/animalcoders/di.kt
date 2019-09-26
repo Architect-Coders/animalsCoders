@@ -14,11 +14,13 @@ import com.architectcoders.animalcoders.login.LoginViewModel
 import com.architectcoders.animalcoders.main.MainActivityViewModel
 import com.architectcoders.animalcoders.map.MapFragmentViewModel
 import com.architectcoders.animalcoders.profile.ProfileFragmentViewModel
+import com.architectcoders.animalcoders.register.RegisterViewModel
 import com.architectcoders.animalcoders.search.SearchFragmentViewModel
 import com.architectcoders.animalcoders.search.detail.AnimalDetailActivityViewModel
 import com.architectcoders.domain.interactors.AnimalsInteractor
 import com.architectcoders.domain.interactors.AuthInteractor
 import com.architectcoders.domain.interactors.LoginInteractor
+import com.architectcoders.domain.interactors.RegisterInteractor
 import com.architectcoders.domain.model.Animal
 import com.architectcoders.domain.repository.AnimalsRepository
 import com.architectcoders.domain.repository.AuthRepository
@@ -47,6 +49,7 @@ fun Application.initDI() {
 
 private val appModule = module {
     viewModel { LoginViewModel(interactor = get(), dispatchers = get()) }
+    viewModel { RegisterViewModel(interactor = get(), dispatchers = get()) }
     viewModel { MainActivityViewModel(authInteractor = get(), dispatchers = get()) }
     viewModel { SearchFragmentViewModel(interactor = get(), dispatchers = get()) }
     viewModel { ProfileFragmentViewModel(dispatchers = get()) }
@@ -61,6 +64,7 @@ private val appModule = module {
 
 private val domainModule = module {
     factory { LoginInteractor(authRepository = get()) }
+    factory { RegisterInteractor(authRepository = get()) }
     factory { AnimalsInteractor(animalsRepository = get()) }
     factory { AuthInteractor(authRepository = get()) }
 }

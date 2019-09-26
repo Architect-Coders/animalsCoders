@@ -6,4 +6,5 @@ import com.google.firebase.auth.FirebaseUser
 
 interface LoginService {
     suspend fun login(username: String, password: String): Either<Failure, FirebaseUser>
+    suspend fun register(username: String, password: String): Either<Failure, FirebaseUser>
 }

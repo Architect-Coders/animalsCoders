@@ -22,4 +22,16 @@ class FirebaseLoginServiceImpl (private var auth: FirebaseAuth) : LoginService {
                     }
                 }
         }
+
+    override suspend fun register(username: String, password: String): Either<Failure, FirebaseUser> =
+        suspendCancellableCoroutine { continuation ->
+            auth.createUserWithEmailAndPassword(username, password)
+                .addOnCompleteListener {
+                    if(it.isSuccessful) {
+                        auth.currentUser?.let { fbUser ->
+                            continuation.resume(Either.right(fbUser))
+                        }?: continuation.resume(Either.left(Failure(Failure.Reason.REGISTER_ERROR)))
+                    }
+                }
+        }
 }

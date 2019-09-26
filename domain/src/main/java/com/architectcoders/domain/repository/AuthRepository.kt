@@ -10,7 +10,7 @@ interface AuthRepository {
 
     suspend fun getCurrentUser(): Either<Failure, User>
 
-    suspend fun createUser(username: String, password: String): Either<Failure, Unit>
+    suspend fun createUser(username: String, password: String): Either<Failure, User>
 
     suspend fun loOutCurrentUser()
 

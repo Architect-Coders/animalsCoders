@@ -29,6 +29,10 @@
                 android:screenOrientation="portrait" />
 
         <activity
+                android:name=".register.RegisterActivity"
+                android:screenOrientation="portrait" />
+
+        <activity
                 android:name=".search.detail.AnimalDetailActivity"
                 android:screenOrientation="portrait" />
     </application>
