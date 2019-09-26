@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_action_search"
+        android:iconTint="@color/colorPrimary"
+        android:icon="@drawable/baseline_search_black"
+        android:title="@string/tab_search" />
+    <!--<item
+        android:id="@+id/bottom_action_map"
+        android:iconTint="@color/colorPrimary"
+        android:icon="@drawable/baseline_map_black"
+        android:title="@string/tab_map" /> -->
+    <item
+        android:id="@+id/bottom_action_profile"
+        android:iconTint="@color/colorPrimary"
+        android:icon="@drawable/baseline_face_black"
+        android:title="@string/tab_profile" />
+</menu>

@@ -1,64 +1,40 @@
 package com.architectcoders.animalcoders.login
 
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.architectcoders.animalcoders.R
 import com.architectcoders.animalcoders.main.MainActivity
-import com.architectcoders.animalcoders.register.RegisterActivity
-import com.architectcoders.animalcoders.tools.goToActivity
-import com.architectcoders.animalcoders.tools.hideKeyboard
+import com.example.baseandroid.activity.BaseActivity
+import com.example.baseandroid.click.setSafeOnClickListener
+import com.example.baseandroid.extensions.goToActivity
+import com.example.baseandroid.extensions.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
-import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+class LoginActivity : BaseActivity<LoginViewState, LoginViewTransition, LoginViewModel>() {
 
-    private val viewModel: LoginViewModel by currentScope.viewModel(this)
+    override val viewModel: LoginViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        setListeners()
-        viewModel.model.observe(this, Observer(::updateUi))
+    override fun getLayout(): Int = R.layout.activity_login
+
+    override fun initView() {
+        //view configurations, adapter initialization
     }
 
-    private fun setListeners() {
-        bt_login.setOnClickListener(this)
-        bt_cancel.setOnClickListener(this)
-        bt_register.setOnClickListener(this)
-    }
-
-    override fun onClick(view: View) {
-        return when (view.id) {
-
-            R.id.bt_cancel -> cancelForm()
-
-            R.id.bt_login -> validateCredentials()
-
-            R.id.bt_register -> goToActivity<RegisterActivity>(false)
-
-            else -> {
+    override fun manageTransition(transition: LoginViewTransition) {
+        when (transition) {
+            is LoginViewTransition.NavigateToHome -> {
+                hideKeyboard()
+                goToActivity<MainActivity>()
             }
         }
     }
 
-    private fun cancelForm() {
-        viewModel.cancelForm()
-    }
+    override fun manageState(state: LoginViewState) {
+        pb_wait.visibility = if (state is LoginViewState.Loading) View.VISIBLE else View.GONE
 
-    private fun validateCredentials() {
-        viewModel.validateCredentials(tie_username.text.toString(), tie_password.text.toString())
-    }
-
-    private fun updateUi(model: LoginViewState) {
-        pb_wait.visibility = if (model is LoginViewState.Loading) View.VISIBLE else View.GONE
-
-        when (model) {
+        when (state) {
             is LoginViewState.EmptyFields -> clearForm()
             is LoginViewState.UsernameError -> {
                 clearUsernameError()
@@ -70,13 +46,26 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             is LoginViewState.Error -> {
                 hideKeyboard()
-                showError(model)
-            }
-            is LoginViewState.NavigateToHome -> {
-                hideKeyboard()
-                goToActivity<MainActivity>()
+                showError(state)
             }
         }
+    }
+
+    override fun initListeners() {
+        bt_login.setSafeOnClickListener {
+            validateCredentials()
+        }
+        bt_cancel.setSafeOnClickListener {
+            cancelForm()
+        }
+    }
+
+    private fun cancelForm() {
+        viewModel.cancelForm()
+    }
+
+    private fun validateCredentials() {
+        viewModel.validateCredentials(tie_username.text.toString(), tie_password.text.toString())
     }
 
     private fun clearForm() {

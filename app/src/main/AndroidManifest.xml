@@ -14,9 +14,8 @@
             android:roundIcon="@drawable/ic_launcher"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".register.RegisterActivity"></activity>
         <activity
-                android:name=".login.LoginActivity"
+                android:name=".main.MainActivity"
                 android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.MainActivity" />
-        <activity android:name=".home.HomeActivity" />
+        <activity
+                android:name=".login.LoginActivity"
+                android:screenOrientation="portrait" />
+
+        <activity
+                android:name=".search.detail.AnimalDetailActivity"
+                android:screenOrientation="portrait" />
     </application>
 
 </manifest>

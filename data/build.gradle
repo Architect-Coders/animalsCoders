@@ -23,15 +23,21 @@ android {
         }
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':domain')
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "androidx.appcompat:appcompat:$compatLibVersion"
+
+    testImplementation "junit:junit:$testJunitLibVersion"
+    androidTestImplementation "androidx.test:runner:$testRunnerLibVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$testExpressoLibVersion"
 
     //ARROW
     implementation "io.arrow-kt:arrow-core-data:$arrow_version"
@@ -45,4 +51,14 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutines"
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion") {
+        // exclude Retrofit’s OkHttp peer-dependency module and define your own module import
+        exclude module: 'okhttp'
+    }
+
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 }
