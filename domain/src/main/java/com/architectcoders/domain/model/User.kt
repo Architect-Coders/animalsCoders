@@ -1,3 +1,5 @@
 package com.architectcoders.domain.model
 
-data class User(val email: String, val token: String)
+import java.io.Serializable
+
+data class User(val email: String, val token: String): Serializable

@@ -21,4 +21,6 @@
     <string name="api_key">QVSiWHOa</string>
     <string name="api_url">https://test1-api.rescuegroups.org/v5/public/</string>
 
+    <string name="register">Register</string>
+    <string name="signup">SignUp</string>
 </resources>

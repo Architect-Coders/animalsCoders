@@ -1,6 +1,7 @@
 package com.architectcoders.animalcoders.login
 
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import arrow.core.Either
 import com.architectcoders.domain.interactors.LoginInteractor
 import com.architectcoders.domain.model.Failure
@@ -53,6 +54,10 @@ class LoginViewModel(private val interactor: LoginInteractor, dispatchers: Corou
     override fun onCleared() {
         super.onCleared()
         serviceCall?.cancel()
+    }
+
+    fun onRegisterClicked() {
+        viewTransition.value = LoginViewTransition.NavigateToRegister
     }
 
 }

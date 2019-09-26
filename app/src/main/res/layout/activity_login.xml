@@ -1,12 +1,11 @@
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/rl_login_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_extrabig"
         android:layout_marginLeft="@dimen/margin_extrabig"
+        android:layout_marginTop="@dimen/margin_extrabig"
         android:layout_marginRight="@dimen/margin_extrabig"
         android:orientation="vertical">
 
@@ -21,75 +20,82 @@
                 android:id="@+id/tie_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/margin_small"
                 android:drawableStart="@drawable/ic_username"
-                android:textColor="@color/colorPrimaryText"
+                android:drawablePadding="@dimen/margin_small"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true"
                 android:selectAllOnFocus="true"
-        />
+                android:singleLine="true"
+                android:textColor="@color/colorPrimaryText" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
-            android:layout_below="@+id/til_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/til_username"
             android:hint="@string/password"
-            app:passwordToggleEnabled="true"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tie_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/margin_small"
                 android:drawableStart="@drawable/ic_password"
-                android:textColor="@android:color/primary_text_light"
+                android:drawablePadding="@dimen/margin_small"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true"
                 android:selectAllOnFocus="true"
-        />
+                android:singleLine="true"
+                android:textColor="@android:color/primary_text_light" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_cancel"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/til_password"
-            android:layout_toStartOf="@+id/bt_login"
             android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_toStartOf="@+id/bt_login"
             android:text="@string/cancel"
-            app:cornerRadius="16dp"
             android:textColor="@color/colorAccent"
+            app:cornerRadius="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_register"
             style="@style/Widget.MaterialComponents.Button.TextButton"
-    />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bt_cancel"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:text="@string/register"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimaryLight" />
 
     <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_login"
+            style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/til_password"
             android:layout_alignParentEnd="true"
             android:text="@string/log_in"
-            app:cornerRadius="16dp"
             android:textColor="@android:color/white"
-            style="@style/Button"
-    />
+            app:cornerRadius="16dp" />
 
     <ProgressBar
             android:id="@+id/pb_wait"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_below="@+id/bt_login"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
             android:visibility="gone"
-            tools:visibility="visible"
-    />
+            tools:visibility="visible" />
 
 </RelativeLayout>
