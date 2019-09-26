@@ -35,6 +35,10 @@
         <activity
                 android:name=".search.detail.AnimalDetailActivity"
                 android:screenOrientation="portrait" />
+
+        <activity
+                android:name=".search.favourites.FavouritesActivity"
+                android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -2,8 +2,8 @@ package com.architectcoders.animalcoders
 
 import android.app.Application
 import com.architectcoders.animalcoders.data.BuildConfig
-import com.architectcoders.animalcoders.data.remote.animal.AnimalsService
-import com.architectcoders.animalcoders.data.remote.animal.AnimalsServiceImpl
+import com.architectcoders.animalcoders.data.remote.animal.*
+import com.architectcoders.animalcoders.data.remote.animal.database.AnimalsDatabase
 import com.architectcoders.animalcoders.data.remote.auth.AuthService
 import com.architectcoders.animalcoders.data.remote.auth.FirebaseAuthServiceImpl
 import com.architectcoders.animalcoders.data.remote.login.FirebaseLoginServiceImpl
@@ -17,6 +17,7 @@ import com.architectcoders.animalcoders.profile.ProfileFragmentViewModel
 import com.architectcoders.animalcoders.register.RegisterViewModel
 import com.architectcoders.animalcoders.search.SearchFragmentViewModel
 import com.architectcoders.animalcoders.search.detail.AnimalDetailActivityViewModel
+import com.architectcoders.animalcoders.search.favourites.FavouritesActivityViewModel
 import com.architectcoders.domain.interactors.AnimalsInteractor
 import com.architectcoders.domain.interactors.AuthInteractor
 import com.architectcoders.domain.interactors.LoginInteractor
@@ -52,11 +53,13 @@ private val appModule = module {
     viewModel { RegisterViewModel(interactor = get(), dispatchers = get()) }
     viewModel { MainActivityViewModel(authInteractor = get(), dispatchers = get()) }
     viewModel { SearchFragmentViewModel(interactor = get(), dispatchers = get()) }
-    viewModel { ProfileFragmentViewModel(dispatchers = get()) }
+    viewModel { ProfileFragmentViewModel(authInteractor = get(), dispatchers = get()) }
+    viewModel { FavouritesActivityViewModel(interactor = get(), dispatchers = get()) }
     viewModel { MapFragmentViewModel(dispatchers = get()) }
     viewModel { (animal: Animal?) ->
         AnimalDetailActivityViewModel(
             animal = animal,
+            interactor = get(),
             dispatchers = get()
         )
     }
@@ -70,6 +73,8 @@ private val domainModule = module {
 }
 
 private val dataModule = module {
+
+    single { AnimalsDatabase.build(get()) }
 
     single {
 
@@ -100,10 +105,15 @@ private val dataModule = module {
 
         retrofitBuilder.build()
     }
-
+    factory<FavouritesService> { FavouritesServiceImpl(db = get()) }
     factory<AuthService> { FirebaseAuthServiceImpl(FirebaseAuth.getInstance()) }
     factory<LoginService> { FirebaseLoginServiceImpl(FirebaseAuth.getInstance()) }
     factory<AuthRepository> { AuthRepositoryImpl(loginService = get(), authService = get()) }
     factory<AnimalsService> { AnimalsServiceImpl(retrofit = get()) }
-    factory<AnimalsRepository> { AnimalsRepositoryImpl(animalsService = get()) }
+    factory<AnimalsRepository> {
+        AnimalsRepositoryImpl(
+            animalsService = get(),
+            favouritesService = get()
+        )
+    }
 }

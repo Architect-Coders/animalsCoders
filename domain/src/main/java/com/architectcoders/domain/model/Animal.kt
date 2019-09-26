@@ -12,4 +12,6 @@ data class Animal(
     val pictureUrl: String,
     val gender: Gender,
     val age: String,
-    val description: String) : Serializable
+    val description: String,
+    val favourite: Boolean = false
+) : Serializable

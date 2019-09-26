@@ -7,4 +7,6 @@ import kotlinx.android.parcel.Parcelize
 sealed class AnimalDetailActivityViewState : Parcelable {
     @Parcelize
     class ViewLoaded(val animal: Animal?): AnimalDetailActivityViewState()
+    @Parcelize
+    class FavouriteModified(val favourite: Boolean) : AnimalDetailActivityViewState()
 }

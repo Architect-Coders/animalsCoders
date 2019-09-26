@@ -64,15 +64,6 @@ class MainActivityViewModel(
 
     }
 
-    /*fun onMapTabClicked() {
-        if (viewState.value != MainActivityViewState.MapState) {
-            viewState.value =
-                MainActivityViewState.MapState
-            viewTransition.value = MainActivityViewTransition.NavigateToMap
-        }
-
-    }*/
-
     fun onProfileTabClicked() {
         if (viewState.value != MainActivityViewState.ProfileState) {
             viewState.value =
@@ -83,6 +74,10 @@ class MainActivityViewModel(
 
     fun navigateToDetail(animal: Animal) {
         viewTransition.value = MainActivityViewTransition.NavigateToAnimalDetail(animal)
+    }
+
+    fun navigateToFavourites() {
+        viewTransition.value = MainActivityViewTransition.NavigateToFavourites
     }
 
 }
